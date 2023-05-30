@@ -1,6 +1,6 @@
-import { createServer } from "node:http";
-import qs from "node:querystring";
-import { createConnection } from "mysql2";
+import http from "http";
+import qs from "querystring";
+import mysql from "mysql";
 import fetch from "node-fetch";
 
 // antares
