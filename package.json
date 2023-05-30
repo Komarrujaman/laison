@@ -6,8 +6,10 @@
   "dependencies": {
     "bignumber.js": "^9.0.0",
     "core-util-is": "^1.0.3",
+    "http": "^0.0.1-security",
     "inherits": "^2.0.4",
     "isarray": "^1.0.0",
+    "mysql": "^2.18.1",
     "node-fetch": "^3.3.1",
     "process-nextick-args": "^2.0.1",
     "readable-stream": "^2.3.7",
