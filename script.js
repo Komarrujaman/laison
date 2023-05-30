@@ -1,6 +1,7 @@
 const http = require("http");
 const qs = require("querystring");
 const mysql = require("mysql");
+const axios = require("axios");
 
 // antares
 // daily_frozen
@@ -27,7 +28,6 @@ function daily_frozenAntares(pushType, meterNo, frozenDate, hoursData, todayVol,
 
 // alarm
 function alarmAntares(pushType, meterNo, warningTime, warningCode, warningInfo) {
-  const axios = require("axios");
   let data = `{\n  "m2m:cin": {\n    "con": "{\\"pushType\\":\\"${pushType}\\",\\"meterNo\\":\\"${meterNo}\\",\\"warningTime\\":\\"${warningTime}\\",\\"warningCode\\":\\"${warningCode}\\",\\"warningInfo\\":\\"${warningInfo}\\"}"\n}\n}`;
 
   let config = {
