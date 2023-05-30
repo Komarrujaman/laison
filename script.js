@@ -1,7 +1,7 @@
-const http = require("http");
-const qs = require("querystring");
-const mysql = require("mysql");
-const fetch = require("node-fetch");
+import { createServer } from "http";
+import qs from "querystring";
+import { createConnection } from "mysql";
+import fetch from "node-fetch";
 
 // antares
 // daily_frozen
@@ -28,7 +28,7 @@ function daily_frozenAntares(pushType, meterNo, frozenDate, hoursData, todayVol,
 }
 
 // buat koneksi ke database
-const connection = mysql.createConnection({
+const connection = createConnection({
   host: "localhost",
   user: "root",
   password: "telkomaru123",
@@ -43,7 +43,7 @@ connection.connect((err) => {
   console.log("connected to database");
 });
 
-const server = http.createServer((req, res) => {
+const server = createServer((req, res) => {
   if (req.method === "POST" && req.url === "/laison/receive/data") {
     let requestBody = "";
 
