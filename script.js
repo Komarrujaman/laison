@@ -73,7 +73,7 @@ function meterTaskAntares(pushType, meterNo, taskType, state, serialNo, totalUse
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: "telkomaru123",
   database: "xirka-push",
 });
 
