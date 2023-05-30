@@ -1,12 +1,13 @@
 const http = require("http");
 const qs = require("querystring");
 const mysql = require("mysql");
+const daily_frozenAntares = require("./antares");
 
 // buat koneksi ke database
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "telkomaru123",
+  password: "",
   database: "xirka-push",
 });
 
@@ -45,7 +46,7 @@ const server = http.createServer((req, res) => {
             res.end(JSON.stringify({ status: 500, message: "Error inserting data into database" }));
             return;
           }
-          // daily_frozenAntares(pushType, data.meterNo, data.frozenDate, data.hoursData, data.todayVol, data.totalVol);
+          daily_frozenAntares(data.meterNo);
           console.log("data inserted into daily_frozen table");
           res.end(JSON.stringify({ status: 200, message: "Data inserted successfully" }));
         });
