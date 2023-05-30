@@ -95,7 +95,7 @@ function meterTaskAntares(pushType, meterNo, taskType, state, serialNo, totalUse
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: "telkomaru123",
   database: "xirka-push",
 });
 
@@ -187,6 +187,6 @@ const server = http.createServer((req, res) => {
   }
 });
 
-server.listen(3002, () => {
+server.listen(3000, () => {
   console.log("Server running at http://localhost:3000/");
 });
