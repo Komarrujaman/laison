@@ -27,23 +27,46 @@ function daily_frozenAntares(pushType, meterNo, frozenDate, hoursData, todayVol,
 
 // alarm
 function alarmAntares(pushType, meterNo, warningTime, warningCode, warningInfo) {
-  var raw = `{\n  "m2m:cin": {\n    "con": "{\\"pushType\\":\\"${pushType}\\",\\"meterNo\\":\\"${meterNo}\\",\\"warningTime\\":\\"${warningTime}\\",\\"warningCode\\":\\"${warningCode}\\",\\"warningInfo\\":\\"${warningInfo}\\"}"\n}\n}`;
+  const axios = require("axios");
+  let data = `{\n  "m2m:cin": {\n    "con": "{\\"pushType\\":\\"${pushType}\\",\\"meterNo\\":\\"${meterNo}\\",\\"warningTime\\":\\"${warningTime}\\",\\"warningCode\\":\\"${warningCode}\\",\\"warningInfo\\":\\"${warningInfo}\\"}"\n}\n}`;
 
-  var requestOptions = {
-    method: "POST",
+  let config = {
+    method: "post",
+    maxBodyLength: Infinity,
+    url: "https://platform.antares.id:8443/~/antares-cse/antares-id/laison/2001030100446",
     headers: {
       "X-M2M-Origin": "b07f83b1409132e9:84c6cc0b97b86892",
       "Content-Type": "application/json;ty=4",
       Accept: "application/json",
     },
-    body: raw,
-    redirect: "follow",
+    data: data,
   };
 
-  fetch("https://platform.antares.id:8443/~/antares-cse/antares-id/laison/" + meterNo + "", requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
+  axios
+    .request(config)
+    .then((response) => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  // var raw = `{\n  "m2m:cin": {\n    "con": "{\\"pushType\\":\\"${pushType}\\",\\"meterNo\\":\\"${meterNo}\\",\\"warningTime\\":\\"${warningTime}\\",\\"warningCode\\":\\"${warningCode}\\",\\"warningInfo\\":\\"${warningInfo}\\"}"\n}\n}`;
+
+  // var requestOptions = {
+  //   method: "POST",
+  //   headers: {
+  //     "X-M2M-Origin": "b07f83b1409132e9:84c6cc0b97b86892",
+  //     "Content-Type": "application/json;ty=4",
+  //     Accept: "application/json",
+  //   },
+  //   body: raw,
+  //   redirect: "follow",
+  // };
+
+  // fetch("https://platform.antares.id:8443/~/antares-cse/antares-id/laison/" + meterNo + "", requestOptions)
+  //   .then((response) => response.text())
+  //   .then((result) => console.log(result))
+  //   .catch((error) => console.log("error", error));
 }
 
 // meterTask
@@ -72,7 +95,7 @@ function meterTaskAntares(pushType, meterNo, taskType, state, serialNo, totalUse
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "telkomaru123",
+  password: "",
   database: "xirka-push",
 });
 
@@ -164,6 +187,6 @@ const server = http.createServer((req, res) => {
   }
 });
 
-server.listen(3000, () => {
+server.listen(3002, () => {
   console.log("Server running at http://localhost:3000/");
 });
