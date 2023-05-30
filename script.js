@@ -7,7 +7,7 @@ const daily_frozenAntares = require("./antares");
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: "telkomaru123",
   database: "xirka-push",
 });
 
