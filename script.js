@@ -1,34 +1,9 @@
-import http from "http";
-import qs from "querystring";
-import mysql from "mysql";
-import fetch from "node-fetch";
-
-// antares
-// daily_frozen
-function daily_frozenAntares(pushType, meterNo, frozenDate, hoursData, todayVol, totalVol) {
-  var myHeaders = {
-    "X-M2M-Origin": "b07f83b1409132e9:84c6cc0b97b86892",
-    "Content-Type": "application/json;ty=4",
-    Accept: "application/json",
-  };
-
-  var raw = `{\n  "m2m:cin": {\n    "con": "{\\"pushType\\":\\"${pushType}\\",\\"meterNo\\":\\"${meterNo}\\",\\"frozenDate\\":\\"${frozenDate}\\",\\"hoursData\\":\\"${hoursData}\\",\\"todayVol\\":\\"${todayVol}\\",\\"totalVol\\":\\"${totalVol}\\"}"\n}\n}`;
-
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow",
-  };
-
-  fetch("https://platform.antares.id:8443/~/antares-cse/antares-id/laison/" + meterNo + "", requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
-}
+const http = require("http");
+const qs = require("querystring");
+const mysql = require("mysql");
 
 // buat koneksi ke database
-const connection = createConnection({
+const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "telkomaru123",
@@ -43,7 +18,7 @@ connection.connect((err) => {
   console.log("connected to database");
 });
 
-const server = createServer((req, res) => {
+const server = http.createServer((req, res) => {
   if (req.method === "POST" && req.url === "/laison/receive/data") {
     let requestBody = "";
 
