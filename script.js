@@ -1,7 +1,8 @@
 const http = require("http");
 const qs = require("querystring");
 const mysql = require("mysql");
-import fetch, { Headers } from "node-fetch";
+const fetch = require("node-fetch");
+const { Headers } = fetch;
 // const axios = require("axios");
 
 // antares
