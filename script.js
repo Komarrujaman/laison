@@ -27,16 +27,15 @@ function daily_frozenAntares(pushType, meterNo, frozenDate, hoursData, todayVol,
 
 // alarm
 function alarmAntares(pushType, meterNo, warningTime, warningCode, warningInfo) {
-  var myHeaders = new Headers();
-  myHeaders.append("X-M2M-Origin", "b07f83b1409132e9:84c6cc0b97b86892");
-  myHeaders.append("Content-Type", "application/json;ty=4");
-  myHeaders.append("Accept", "application/json");
-
   var raw = `{\n  "m2m:cin": {\n    "con": "{\\"pushType\\":\\"${pushType}\\",\\"meterNo\\":\\"${meterNo}\\",\\"warningTime\\":\\"${warningTime}\\",\\"warningCode\\":\\"${warningCode}\\",\\"warningInfo\\":\\"${warningInfo}\\"}"\n}\n}`;
 
   var requestOptions = {
     method: "POST",
-    headers: myHeaders,
+    headers: {
+      "X-M2M-Origin": "b07f83b1409132e9:84c6cc0b97b86892",
+      "Content-Type": "application/json;ty=4",
+      Accept: "application/json",
+    },
     body: raw,
     redirect: "follow",
   };
