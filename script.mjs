@@ -1,7 +1,7 @@
-import { createServer } from "http";
-import qs from "querystring";
-import { createConnection } from "mysql";
-import fetch from "node-fetch";
+const http = require("http");
+const querystring = require("querystring");
+const mysql = require("mysql");
+const fetch = require("node-fetch");
 
 // antares
 // daily_frozen
