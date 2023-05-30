@@ -134,7 +134,7 @@ const server = http.createServer((req, res) => {
             res.end(JSON.stringify({ status: 500, message: "Error inserting data into database" }));
             return;
           }
-          // daily_frozenAntares(pushType, data.meterNo, data.frozenDate, data.hoursData, data.todayVol, data.totalVol);
+          daily_frozenAntares(pushType, data.meterNo, data.frozenDate, data.hoursData, data.todayVol, data.totalVol);
           console.log("data inserted into daily_frozen table");
           res.end(JSON.stringify({ status: 200, message: "Data inserted successfully" }));
         });
