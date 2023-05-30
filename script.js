@@ -2,11 +2,36 @@ const http = require("http");
 const qs = require("querystring");
 const mysql = require("mysql");
 
+// antares
+// Alarm
+//
+// meterTask
+function meterTaskAntares(pushType, meterNo, taskType, state, serialNo, totalUsedVolume, totalPurchaseVolume, surplusVolume, totalUsedAmount, totalPurchaseAmount, surplusAmount, clock) {
+  var myHeaders = new Headers();
+  myHeaders.append("X-M2M-Origin", "b07f83b1409132e9:84c6cc0b97b86892");
+  myHeaders.append("Content-Type", "application/json;ty=4");
+  myHeaders.append("Accept", "application/json");
+
+  var raw = `{\n  "m2m:cin": {\n    "con": "{\\"pushType\\":\\"${pushType}\\",\\"meterNo\\":\\"${meterNo}\\",\\"taskType\\":\\"${taskType}\\",\\"state\\":\\"${state}\\",\\"serialNo\\":\\"${serialNo}\\",\\"totalUsedVolume\\":\\"${totalUsedVolume}\\",\\"totalPurchaseVolume\\":\\"${totalPurchaseVolume}\\",\\"surplusVolume\\":\\"${surplusVolume}\\",\\"totalUsedAmount\\":\\"${totalUsedAmount}\\",\\"totalPurchaseAmount\\":\\"${totalPurchaseAmount}\\",\\"surplusAmount\\":\\"${surplusAmount}\\",\\"clock\\":\\"${clock}\\"}"\n}\n}`;
+
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
+
+  fetch("https://platform.antares.id:8443/~/antares-cse/antares-id/laison/" + meterNo + "", requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
+}
+
 // buat koneksi ke database
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "telkomaru123",
+  password: "",
   database: "xirka-push",
 });
 
@@ -68,12 +93,12 @@ const server = http.createServer((req, res) => {
 
         // lakukan penyimpanan ke tabel meter_task
         const clock = data.detail ? data.detail.clock : undefined;
-const totalUsedVolume = data.detail ? data.detail.totalUsedVolume : undefined;
-const totalPurchaseVolume = data.detail ? data.detail.totalPurchaseVolume : undefined;
-const surplusVolume = data.detail ? data.detail.surplusVolume : undefined;
-const totalUsedAmount = data.detail ? data.detail.totalUsedAmount : undefined;
-const totalPurchaseAmount = data.detail ? data.detail.totalPurchaseAmount : undefined;
-const surplusAmount = data.detail ? data.detail.surplusAmount : undefined;
+        const totalUsedVolume = data.detail ? data.detail.totalUsedVolume : undefined;
+        const totalPurchaseVolume = data.detail ? data.detail.totalPurchaseVolume : undefined;
+        const surplusVolume = data.detail ? data.detail.surplusVolume : undefined;
+        const totalUsedAmount = data.detail ? data.detail.totalUsedAmount : undefined;
+        const totalPurchaseAmount = data.detail ? data.detail.totalPurchaseAmount : undefined;
+        const surplusAmount = data.detail ? data.detail.surplusAmount : undefined;
         const query = `INSERT INTO meter_task (meterNo, taskType, state, serialNo, totalUsedVolume, totalPurchaseVolume,surplusVolume, totalUsedAmount, totalPurchaseAmount, surplusAmount, clock) VALUES (?, ?, ?, ?,?, ?, ?, ?, ?,?,?)`;
         const values = [data.meterNo, data.taskType, data.state, data.serialNo, totalUsedVolume, totalPurchaseVolume, surplusVolume, totalUsedAmount, totalPurchaseAmount, surplusAmount, clock];
         connection.query(query, values, (error, results, fields) => {
@@ -82,6 +107,7 @@ const surplusAmount = data.detail ? data.detail.surplusAmount : undefined;
             res.end(JSON.stringify({ status: 500, message: "Error inserting data into database" }));
             return;
           }
+          meterTaskAntares(pushType, data.meterNo, data.taskType, data.state, data.serialNo, totalUsedVolume, totalPurchaseVolume, surplusVolume, totalUsedAmount, totalPurchaseAmount, surplusAmount, clock);
           console.log("data inserted into meter_task table");
           res.end(JSON.stringify({ status: 200, message: "Data inserted successfully" }));
         });
@@ -95,6 +121,6 @@ const surplusAmount = data.detail ? data.detail.surplusAmount : undefined;
   }
 });
 
-server.listen(3000, () => {
-  console.log("Server running at http://localhost:3000/");
+server.listen(3001, () => {
+  console.log("Server running at http://localhost:3001/");
 });
