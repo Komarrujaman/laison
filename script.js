@@ -1,14 +1,16 @@
 const http = require("http");
 const qs = require("querystring");
 const mysql = require("mysql");
+const fetch = require("node-fetch");
 
 // antares
 // daily_frozen
 function daily_frozenAntares(pushType, meterNo, frozenDate, hoursData, todayVol, totalVol) {
-  var myHeaders = new Headers();
-  myHeaders.append("X-M2M-Origin", "b07f83b1409132e9:84c6cc0b97b86892");
-  myHeaders.append("Content-Type", "application/json;ty=4");
-  myHeaders.append("Accept", "application/json");
+  var myHeaders = {
+    "X-M2M-Origin": "b07f83b1409132e9:84c6cc0b97b86892",
+    "Content-Type": "application/json;ty=4",
+    Accept: "application/json",
+  };
 
   var raw = `{\n  "m2m:cin": {\n    "con": "{\\"pushType\\":\\"${pushType}\\",\\"meterNo\\":\\"${meterNo}\\",\\"frozenDate\\":\\"${frozenDate}\\",\\"hoursData\\":\\"${hoursData}\\",\\"todayVol\\":\\"${todayVol}\\",\\"totalVol\\":\\"${totalVol}\\"}"\n}\n}`;
 
