@@ -1,95 +1,95 @@
 const http = require("http");
 const qs = require("querystring");
 const mysql = require("mysql");
-const axios = require("axios");
+// const axios = require("axios");
 
 // antares
 // daily_frozen
-function daily_frozenAntares(pushType, meterNo, frozenDate, hoursData, todayVol, totalVol) {
-  var myHeaders = new Headers();
-  myHeaders.append("X-M2M-Origin", "b07f83b1409132e9:84c6cc0b97b86892");
-  myHeaders.append("Content-Type", "application/json;ty=4");
-  myHeaders.append("Accept", "application/json");
+// function daily_frozenAntares(pushType, meterNo, frozenDate, hoursData, todayVol, totalVol) {
+//   var myHeaders = new Headers();
+//   myHeaders.append("X-M2M-Origin", "b07f83b1409132e9:84c6cc0b97b86892");
+//   myHeaders.append("Content-Type", "application/json;ty=4");
+//   myHeaders.append("Accept", "application/json");
 
-  var raw = `{\n  "m2m:cin": {\n    "con": "{\\"pushType\\":\\"${pushType}\\",\\"meterNo\\":\\"${meterNo}\\",\\"frozenDate\\":\\"${frozenDate}\\",\\"hoursData\\":\\"${hoursData}\\",\\"todayVol\\":\\"${todayVol}\\",\\"totalVol\\":\\"${totalVol}\\"}"\n}\n}`;
+//   var raw = `{\n  "m2m:cin": {\n    "con": "{\\"pushType\\":\\"${pushType}\\",\\"meterNo\\":\\"${meterNo}\\",\\"frozenDate\\":\\"${frozenDate}\\",\\"hoursData\\":\\"${hoursData}\\",\\"todayVol\\":\\"${todayVol}\\",\\"totalVol\\":\\"${totalVol}\\"}"\n}\n}`;
 
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow",
-  };
+//   var requestOptions = {
+//     method: "POST",
+//     headers: myHeaders,
+//     body: raw,
+//     redirect: "follow",
+//   };
 
-  fetch("https://platform.antares.id:8443/~/antares-cse/antares-id/laison/" + meterNo + "", requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
-}
+//   fetch("https://platform.antares.id:8443/~/antares-cse/antares-id/laison/" + meterNo + "", requestOptions)
+//     .then((response) => response.text())
+//     .then((result) => console.log(result))
+//     .catch((error) => console.log("error", error));
+// }
 
-// alarm
-function alarmAntares(pushType, meterNo, warningTime, warningCode, warningInfo) {
-  let data = `{\n  "m2m:cin": {\n    "con": "{\\"pushType\\":\\"${pushType}\\",\\"meterNo\\":\\"${meterNo}\\",\\"warningTime\\":\\"${warningTime}\\",\\"warningCode\\":\\"${warningCode}\\",\\"warningInfo\\":\\"${warningInfo}\\"}"\n}\n}`;
+// // alarm
+// function alarmAntares(pushType, meterNo, warningTime, warningCode, warningInfo) {
+//   let data = `{\n  "m2m:cin": {\n    "con": "{\\"pushType\\":\\"${pushType}\\",\\"meterNo\\":\\"${meterNo}\\",\\"warningTime\\":\\"${warningTime}\\",\\"warningCode\\":\\"${warningCode}\\",\\"warningInfo\\":\\"${warningInfo}\\"}"\n}\n}`;
 
-  let config = {
-    method: "post",
-    maxBodyLength: Infinity,
-    url: "https://platform.antares.id:8443/~/antares-cse/antares-id/laison/2001030100446",
-    headers: {
-      "X-M2M-Origin": "b07f83b1409132e9:84c6cc0b97b86892",
-      "Content-Type": "application/json;ty=4",
-      Accept: "application/json",
-    },
-    data: data,
-  };
+//   let config = {
+//     method: "post",
+//     maxBodyLength: Infinity,
+//     url: "https://platform.antares.id:8443/~/antares-cse/antares-id/laison/2001030100446",
+//     headers: {
+//       "X-M2M-Origin": "b07f83b1409132e9:84c6cc0b97b86892",
+//       "Content-Type": "application/json;ty=4",
+//       Accept: "application/json",
+//     },
+//     data: data,
+//   };
 
-  axios
-    .request(config)
-    .then((response) => {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  // var raw = `{\n  "m2m:cin": {\n    "con": "{\\"pushType\\":\\"${pushType}\\",\\"meterNo\\":\\"${meterNo}\\",\\"warningTime\\":\\"${warningTime}\\",\\"warningCode\\":\\"${warningCode}\\",\\"warningInfo\\":\\"${warningInfo}\\"}"\n}\n}`;
+//   axios
+//     .request(config)
+//     .then((response) => {
+//       console.log(JSON.stringify(response.data));
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// var raw = `{\n  "m2m:cin": {\n    "con": "{\\"pushType\\":\\"${pushType}\\",\\"meterNo\\":\\"${meterNo}\\",\\"warningTime\\":\\"${warningTime}\\",\\"warningCode\\":\\"${warningCode}\\",\\"warningInfo\\":\\"${warningInfo}\\"}"\n}\n}`;
 
-  // var requestOptions = {
-  //   method: "POST",
-  //   headers: {
-  //     "X-M2M-Origin": "b07f83b1409132e9:84c6cc0b97b86892",
-  //     "Content-Type": "application/json;ty=4",
-  //     Accept: "application/json",
-  //   },
-  //   body: raw,
-  //   redirect: "follow",
-  // };
+// var requestOptions = {
+//   method: "POST",
+//   headers: {
+//     "X-M2M-Origin": "b07f83b1409132e9:84c6cc0b97b86892",
+//     "Content-Type": "application/json;ty=4",
+//     Accept: "application/json",
+//   },
+//   body: raw,
+//   redirect: "follow",
+// };
 
-  // fetch("https://platform.antares.id:8443/~/antares-cse/antares-id/laison/" + meterNo + "", requestOptions)
-  //   .then((response) => response.text())
-  //   .then((result) => console.log(result))
-  //   .catch((error) => console.log("error", error));
-}
+// fetch("https://platform.antares.id:8443/~/antares-cse/antares-id/laison/" + meterNo + "", requestOptions)
+//   .then((response) => response.text())
+//   .then((result) => console.log(result))
+//   .catch((error) => console.log("error", error));
+// }
 
 // meterTask
-function meterTaskAntares(pushType, meterNo, taskType, state, serialNo, totalUsedVolume, totalPurchaseVolume, surplusVolume, totalUsedAmount, totalPurchaseAmount, surplusAmount, clock) {
-  var myHeaders = new Headers();
-  myHeaders.append("X-M2M-Origin", "b07f83b1409132e9:84c6cc0b97b86892");
-  myHeaders.append("Content-Type", "application/json;ty=4");
-  myHeaders.append("Accept", "application/json");
+// function meterTaskAntares(pushType, meterNo, taskType, state, serialNo, totalUsedVolume, totalPurchaseVolume, surplusVolume, totalUsedAmount, totalPurchaseAmount, surplusAmount, clock) {
+//   var myHeaders = new Headers();
+//   myHeaders.append("X-M2M-Origin", "b07f83b1409132e9:84c6cc0b97b86892");
+//   myHeaders.append("Content-Type", "application/json;ty=4");
+//   myHeaders.append("Accept", "application/json");
 
-  var raw = `{\n  "m2m:cin": {\n    "con": "{\\"pushType\\":\\"${pushType}\\",\\"meterNo\\":\\"${meterNo}\\",\\"taskType\\":\\"${taskType}\\",\\"state\\":\\"${state}\\",\\"serialNo\\":\\"${serialNo}\\",\\"totalUsedVolume\\":\\"${totalUsedVolume}\\",\\"totalPurchaseVolume\\":\\"${totalPurchaseVolume}\\",\\"surplusVolume\\":\\"${surplusVolume}\\",\\"totalUsedAmount\\":\\"${totalUsedAmount}\\",\\"totalPurchaseAmount\\":\\"${totalPurchaseAmount}\\",\\"surplusAmount\\":\\"${surplusAmount}\\",\\"clock\\":\\"${clock}\\"}"\n}\n}`;
+//   var raw = `{\n  "m2m:cin": {\n    "con": "{\\"pushType\\":\\"${pushType}\\",\\"meterNo\\":\\"${meterNo}\\",\\"taskType\\":\\"${taskType}\\",\\"state\\":\\"${state}\\",\\"serialNo\\":\\"${serialNo}\\",\\"totalUsedVolume\\":\\"${totalUsedVolume}\\",\\"totalPurchaseVolume\\":\\"${totalPurchaseVolume}\\",\\"surplusVolume\\":\\"${surplusVolume}\\",\\"totalUsedAmount\\":\\"${totalUsedAmount}\\",\\"totalPurchaseAmount\\":\\"${totalPurchaseAmount}\\",\\"surplusAmount\\":\\"${surplusAmount}\\",\\"clock\\":\\"${clock}\\"}"\n}\n}`;
 
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow",
-  };
+//   var requestOptions = {
+//     method: "POST",
+//     headers: myHeaders,
+//     body: raw,
+//     redirect: "follow",
+//   };
 
-  fetch("https://platform.antares.id:8443/~/antares-cse/antares-id/laison/" + meterNo + "", requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
-}
+//   fetch("https://platform.antares.id:8443/~/antares-cse/antares-id/laison/" + meterNo + "", requestOptions)
+//     .then((response) => response.text())
+//     .then((result) => console.log(result))
+//     .catch((error) => console.log("error", error));
+// }
 
 // buat koneksi ke database
 const connection = mysql.createConnection({
@@ -134,7 +134,7 @@ const server = http.createServer((req, res) => {
             res.end(JSON.stringify({ status: 500, message: "Error inserting data into database" }));
             return;
           }
-          daily_frozenAntares(pushType, data.meterNo, data.frozenDate, data.hoursData, data.todayVol, data.totalVol);
+          // daily_frozenAntares(pushType, data.meterNo, data.frozenDate, data.hoursData, data.todayVol, data.totalVol);
           console.log("data inserted into daily_frozen table");
           res.end(JSON.stringify({ status: 200, message: "Data inserted successfully" }));
         });
@@ -150,7 +150,7 @@ const server = http.createServer((req, res) => {
             res.end(JSON.stringify({ status: 500, message: "Error inserting data into database" }));
             return;
           }
-          alarmAntares(pushType, data.meterNo, data.warningTime, data.warningCode, data.warningInfo);
+          // alarmAntares(pushType, data.meterNo, data.warningTime, data.warningCode, data.warningInfo);
           console.log("data inserted into alarm table");
           res.end(JSON.stringify({ status: 200, message: "Data inserted successfully" }));
         });
@@ -173,7 +173,7 @@ const server = http.createServer((req, res) => {
             res.end(JSON.stringify({ status: 500, message: "Error inserting data into database" }));
             return;
           }
-          meterTaskAntares(pushType, data.meterNo, data.taskType, data.state, data.serialNo, totalUsedVolume, totalPurchaseVolume, surplusVolume, totalUsedAmount, totalPurchaseAmount, surplusAmount, clock);
+          // meterTaskAntares(pushType, data.meterNo, data.taskType, data.state, data.serialNo, totalUsedVolume, totalPurchaseVolume, surplusVolume, totalUsedAmount, totalPurchaseAmount, surplusAmount, clock);
           console.log("data inserted into meter_task table");
           res.end(JSON.stringify({ status: 200, message: "Data inserted successfully" }));
         });
