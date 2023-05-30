@@ -5,26 +5,26 @@ const mysql = require("mysql");
 
 // antares
 // daily_frozen
-// function daily_frozenAntares(pushType, meterNo, frozenDate, hoursData, todayVol, totalVol) {
-//   var myHeaders = new Headers();
-//   myHeaders.append("X-M2M-Origin", "b07f83b1409132e9:84c6cc0b97b86892");
-//   myHeaders.append("Content-Type", "application/json;ty=4");
-//   myHeaders.append("Accept", "application/json");
+function daily_frozenAntares(pushType, meterNo, frozenDate, hoursData, todayVol, totalVol) {
+  var myHeaders = new Headers();
+  myHeaders.append("X-M2M-Origin", "b07f83b1409132e9:84c6cc0b97b86892");
+  myHeaders.append("Content-Type", "application/json;ty=4");
+  myHeaders.append("Accept", "application/json");
 
-//   var raw = `{\n  "m2m:cin": {\n    "con": "{\\"pushType\\":\\"${pushType}\\",\\"meterNo\\":\\"${meterNo}\\",\\"frozenDate\\":\\"${frozenDate}\\",\\"hoursData\\":\\"${hoursData}\\",\\"todayVol\\":\\"${todayVol}\\",\\"totalVol\\":\\"${totalVol}\\"}"\n}\n}`;
+  var raw = `{\n  "m2m:cin": {\n    "con": "{\\"pushType\\":\\"${pushType}\\",\\"meterNo\\":\\"${meterNo}\\",\\"frozenDate\\":\\"${frozenDate}\\",\\"hoursData\\":\\"${hoursData}\\",\\"todayVol\\":\\"${todayVol}\\",\\"totalVol\\":\\"${totalVol}\\"}"\n}\n}`;
 
-//   var requestOptions = {
-//     method: "POST",
-//     headers: myHeaders,
-//     body: raw,
-//     redirect: "follow",
-//   };
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
 
-//   fetch("https://platform.antares.id:8443/~/antares-cse/antares-id/laison/" + meterNo + "", requestOptions)
-//     .then((response) => response.text())
-//     .then((result) => console.log(result))
-//     .catch((error) => console.log("error", error));
-// }
+  fetch("https://platform.antares.id:8443/~/antares-cse/antares-id/laison/" + meterNo + "", requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
+}
 
 // // alarm
 // function alarmAntares(pushType, meterNo, warningTime, warningCode, warningInfo) {
