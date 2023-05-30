@@ -1,6 +1,6 @@
 const axios = require("axios");
-function daily_frozenAntares(meterNo) {
-  let data = '{\n  "m2m:cin": {\n    "con": "{\\"status\\":\\"0\\"}"\n  }\n}';
+function daily_frozenAntares(pushType, meterNo, frozenDate, hoursData, todayVol, totalVol) {
+  let data = `{\n  "m2m:cin": {\n    "con": "{\\"pushType\\":\\"${pushType}\\",\\"meterNo\\":\\"${meterNo}\\",\\"frozenDate\\":\\"${frozenDate}\\",\\"hoursData\\":\\"${hoursData}\\",\\"todayVol\\":\\"${todayVol}\\",\\"totalVol\\":\\"${totalVol}\\"}"\n}\n}`;
 
   let config = {
     method: "post",
