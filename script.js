@@ -1,7 +1,7 @@
 const http = require("http");
 const qs = require("querystring");
 const mysql = require("mysql");
-const daily_frozenAntares = require("./antares");
+const { daily_frozenAntares, alarmAntares, meter_taskAntares } = require("./antares");
 
 // buat koneksi ke database
 const connection = mysql.createConnection({
@@ -62,7 +62,7 @@ const server = http.createServer((req, res) => {
             res.end(JSON.stringify({ status: 500, message: "Error inserting data into database" }));
             return;
           }
-          // alarmAntares(pushType, data.meterNo, data.warningTime, data.warningCode, data.warningInfo);
+          alarmAntares(pushType, data.meterNo, data.warningTime, data.warningCode, data.warningInfo);
           console.log("data inserted into alarm table");
           res.end(JSON.stringify({ status: 200, message: "Data inserted successfully" }));
         });
@@ -85,7 +85,7 @@ const server = http.createServer((req, res) => {
             res.end(JSON.stringify({ status: 500, message: "Error inserting data into database" }));
             return;
           }
-          // meterTaskAntares(pushType, data.meterNo, data.taskType, data.state, data.serialNo, totalUsedVolume, totalPurchaseVolume, surplusVolume, totalUsedAmount, totalPurchaseAmount, surplusAmount, clock);
+          meter_taskAntares(pushType, data.meterNo, data.taskType, data.state, data.serialNo, totalUsedVolume, totalPurchaseVolume, surplusVolume, totalUsedAmount, totalPurchaseAmount, surplusAmount, clock);
           console.log("data inserted into meter_task table");
           res.end(JSON.stringify({ status: 200, message: "Data inserted successfully" }));
         });
